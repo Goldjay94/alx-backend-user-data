@@ -22,12 +22,7 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """Format method to class
-        Args:
-            record (logging.LogRecord): [description]
-        Returns:
-            str: [description]
-        """
+        """Function called format returns the log message"""
         msg = filter_datum(self.fields, self.REDACTION,
                            super().format(record), self.SEPARATOR)
         return msg
@@ -44,7 +39,10 @@ def filter_datum(fields: List[str], redaction: str,
 
 
 def get_logger() -> logging.Logger:
-    """a function called get_logger that takes no arguments"""
+    """get_logger implementation
+    Returns:
+        logging.Logger:
+    """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
@@ -56,8 +54,8 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-     """a function called get_db"""
-     db = mysql.connector.connection.MySQLConnection(
+    """a function called get_db"""
+    db = mysql.connector.connection.MySQLConnection(
         user=getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
         password=getenv('PERSONAL_DATA_DB_PASSWORD', ''),
         host=getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
@@ -68,7 +66,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 # task 4
 def main():
-    """ Redacting Formatter class."""
+    """ a function called main takes no arguments"""
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
