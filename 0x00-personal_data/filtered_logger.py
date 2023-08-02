@@ -56,15 +56,14 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    """ Redacting Formatter class."""
-    db = mysql.connector.connection.MySQLConnection(
-        user=getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
-        password=getenv('PERSONAL_DATA_DB_PASSWORD', ''),
-        host=getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
-        database=getenv('PERSONAL_DATA_DB_NAME'))
-
+     """a function called get_db"""
+    db = mysql.connector.connect(
+        host=os.environ.get('PERSONAL_DATA_DB_HOST', 'localhost'),
+        database=os.environ.get('PERSONAL_DATA_DB_NAME'),
+        user=os.environ.get('PERSONAL_DATA_DB_USERNAME', 'root'),
+        password=os.environ.get('PERSONAL_DATA_DB_PASSWORD', '')
+    )
     return db
-
 
 # task 4
 def main():
